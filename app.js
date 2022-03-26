@@ -3,10 +3,11 @@ const app = express();
 const session = require('express-session');
 const morgan = require('morgan')
 const cors = require('cors')
+require('dotenv').config()
 const MongoDBStore = require('connect-mongodb-session')(session);
 const cloudinary = require('cloudinary').v2;
-require('dotenv').config()
-const User = require('./models/user');
+
+// const User = require('./models/user');
 
 
 const store = new MongoDBStore({
@@ -20,12 +21,12 @@ require('./db-utils/connect')
 
 
 const restaurantController = require('./controllers/restaurantController')
-const userController = require('./controllers/userController')
+// const userController = require('./controllers/userController')
 
 app.use(express.static("public"))
 
 app.use(require('./middleware/logger'))
-const isLoggedIn = require('./middleware/isLoggedIn')
+// const isLoggedIn = require('./middleware/isLoggedIn')
 
 app.use(morgan('short'))
 app.use(cors())
