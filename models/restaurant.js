@@ -5,7 +5,7 @@ const restaurantSchema = new Schema({
     name: { type: String, required: true },
     visited: { type: Boolean, required: true},
     cuisine: String,
-    img: String,
+    img: { type: String, default:'https://i.imgur.com/IsRaUa5.png'},
     faveDish: String,
     notes: String,
     priceLevel: String,

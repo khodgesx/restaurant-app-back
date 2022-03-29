@@ -47,25 +47,25 @@ router.get('/', async (req, res)=>{
 
 //create route with photo upload
 router.post ('/', upload.single('img'), async (req, res)=>{
+    try{
     //send back new restaurant from form info submitted on front end
     //once we update here in our database, we send to FE to update it in state as well
     //the data is not getting parsed in the request from the restaurant container 
     const restaurantData = req.body 
     console.log(restaurantData)
-    await cloudinary.uploader.upload(req.file.path, res =>{
-        console.log('cloudinary is working?!')
-    })
+    // const image = await cloudinary.uploader.upload(req.file.path)
+    // console.log(image)
     const newRestaurant = await Restaurant.create({
         name: restaurantData.name,
         cuisine: restaurantData.cuisine,
-        img: res.url,
+        img: restaurantData.img,
         faveDish: restaurantData.faveDish,
         notes: restaurantData.notes,
         priceLevel: restaurantData.priceLevel,
         visited: restaurantData.visited
         
     })
-    try{
+    console.log(newRestaurant)
         res.send({
             success:true,
             data: newRestaurant
