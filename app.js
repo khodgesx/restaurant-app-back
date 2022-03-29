@@ -30,7 +30,7 @@ app.use(require('./middleware/logger'))
 
 app.use(morgan('short'))
 app.use(cors())
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET,

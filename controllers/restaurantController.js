@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express()
 const Restaurant = require('../models/restaurant')
+const multer = require('multer')
+const cloudinary = require('cloudinary')
+const upload = multer({dest:'./uploads/'})
 
 //index
 router.get('/', async (req, res)=>{
@@ -22,12 +25,46 @@ router.get('/', async (req, res)=>{
     }
 })
 
-//create
-router.post ('/', async (req, res)=>{
+//create -- this route is working as is without photo upload
+// router.post ('/', async (req, res)=>{
+//     //send back new restaurant from form info submitted on front end
+//     //once we update here in our database, we send to FE to update it in state as well
+//     //the data is not getting parsed in the request from the restaurant container 
+//     const newRestaurant = await Restaurant.create(req.body) 
+//     try{
+//         res.send({
+//             success:true,
+//             data: newRestaurant
+//         })
+//     }catch(err){
+//         res.send({
+//             success:false,
+//             data:err.message
+//         })
+
+//     }
+// })
+
+//create route with photo upload
+router.post ('/', upload.single('img'), async (req, res)=>{
     //send back new restaurant from form info submitted on front end
     //once we update here in our database, we send to FE to update it in state as well
     //the data is not getting parsed in the request from the restaurant container 
-    const newRestaurant = await Restaurant.create(req.body) 
+    const restaurantData = req.body 
+    console.log(restaurantData)
+    await cloudinary.uploader.upload(req.file.path, res =>{
+        console.log('cloudinary is working?!')
+    })
+    const newRestaurant = await Restaurant.create({
+        name: restaurantData.name,
+        cuisine: restaurantData.cuisine,
+        img: res.url,
+        faveDish: restaurantData.faveDish,
+        notes: restaurantData.notes,
+        priceLevel: restaurantData.priceLevel,
+        visited: restaurantData.visited
+        
+    })
     try{
         res.send({
             success:true,
@@ -63,6 +100,8 @@ router.get('/:id', async (req, res)=>{
 //put an object as third paramter for new set to true (otherwise it defaults to false and doesn't actually update it?)
 router.put('/:id', async (req, res)=>{
     const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {new:true})
+    console.log(req.body)
+    console.log(req.params.id)
     try{
         res.send({
             success:true,
