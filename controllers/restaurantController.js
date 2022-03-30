@@ -25,32 +25,13 @@ router.get('/', async (req, res)=>{
     }
 })
 
-//create -- this route is working as is without photo upload
-// router.post ('/', async (req, res)=>{
-//     //send back new restaurant from form info submitted on front end
-//     //once we update here in our database, we send to FE to update it in state as well
-//     //the data is not getting parsed in the request from the restaurant container 
-//     const newRestaurant = await Restaurant.create(req.body) 
-//     try{
-//         res.send({
-//             success:true,
-//             data: newRestaurant
-//         })
-//     }catch(err){
-//         res.send({
-//             success:false,
-//             data:err.message
-//         })
-
-//     }
-// })
 
 //create route with photo upload
 router.post ('/', upload.single('img'), async (req, res)=>{
     try{
     //send back new restaurant from form info submitted on front end
     //once we update here in our database, we send to FE to update it in state as well
-    //the data is not getting parsed in the request from the restaurant container 
+   
     const restaurantData = req.body 
     console.log(restaurantData)
     
@@ -102,6 +83,26 @@ router.put('/:id', async (req, res)=>{
     console.log(req.body)
     console.log(req.params.id)
     try{
+        res.send({
+            success:true,
+            data: restaurant
+        })
+
+    }catch(err){
+        res.send({
+            success:false, 
+            data:err.message
+        })
+    }
+})
+//update photo 
+router.put('/update-photo/:id', upload.single('img'), async (req, res)=>{
+    try{
+        const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {new:true})
+        console.log(req.body)
+        console.log(req.params.id)
+        console.log(req.body.img)
+
         res.send({
             success:true,
             data: restaurant
