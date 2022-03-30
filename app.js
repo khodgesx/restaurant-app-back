@@ -21,12 +21,12 @@ require('./db-utils/connect')
 
 
 const restaurantController = require('./controllers/restaurantController')
-// const userController = require('./controllers/userController')
+const userController = require('./controllers/userController')
 
 app.use(express.static("public"))
 
 app.use(require('./middleware/logger'))
-// const isLoggedIn = require('./middleware/isLoggedIn')
+const isLoggedIn = require('./middleware/isLoggedIn')
 
 app.use(morgan('short'))
 app.use(cors())
@@ -44,19 +44,19 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
-// app.use(async (req, res, next)=>{
-//     // This will send info from session to templates
-//     res.locals.isLoggedIn = req.session.isLoggedIn
-//     if(req.session.isLoggedIn){
-//         const currentUser = await User.findById(req.session.userId)
-//         res.locals.username = currentUser.username
-//         res.locals.userId = req.session.userId.toString()
-//     }
-//     next()
-// })
+app.use(async (req, res, next)=>{
+    // This will send info from session to templates
+    res.locals.isLoggedIn = req.session.isLoggedIn
+    if(req.session.isLoggedIn){
+        const currentUser = await User.findById(req.session.userId)
+        res.locals.username = currentUser.username
+        res.locals.userId = req.session.userId.toString()
+    }
+    next()
+})
 
 app.use('/restaurants', restaurantController)
-// app.use('/users', userController)
+app.use('/users', userController)
 
 const port = process.env.PORT || 3001
 app.listen(port, ()=>{

@@ -53,8 +53,7 @@ router.post ('/', upload.single('img'), async (req, res)=>{
     //the data is not getting parsed in the request from the restaurant container 
     const restaurantData = req.body 
     console.log(restaurantData)
-    // const image = await cloudinary.uploader.upload(req.file.path)
-    // console.log(image)
+    
     const newRestaurant = await Restaurant.create({
         name: restaurantData.name,
         cuisine: restaurantData.cuisine,
