@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express()
 const User = require('../models/user')
+const bcrypt = require('bcryptjs');
+const multer = require('multer')
+const cloudinary = require('cloudinary')
+const upload = multer({dest:'./uploads/'})
 
 //index
 router.get('/', async (req, res)=>{
@@ -22,13 +26,22 @@ router.get('/', async (req, res)=>{
     }
 })
 
-//create
-router.post ('/', async (req, res)=>{
-    //send back new user from form info submitted on front end
-    //once we update here in our database, we send to FE to update it in state as well
-    //the data is not getting parsed in the request from the user container 
-    const newUser = await User.create(req.body) 
+//create route with photo upload
+router.post ('/', upload.single('img'), async (req, res)=>{
     try{
+    //send back new restaurant from form info submitted on front end
+    //once we update here in our database, we send to FE to update it in state as well
+   
+    const userData = req.body 
+    console.log(userData)
+    
+    const newUser = await User.create({
+        displayName: userData.displayName,
+        username: userData.username,
+        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
+        img: userData.img
+    })
+    console.log(newUser)
         res.send({
             success:true,
             data: newUser
@@ -41,7 +54,6 @@ router.post ('/', async (req, res)=>{
 
     }
 })
-
 //show
 router.get('/:id', async (req, res)=>{
     const user = await User.findById(req.params.id)
