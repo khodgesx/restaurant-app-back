@@ -7,7 +7,7 @@ require('dotenv').config()
 const MongoDBStore = require('connect-mongodb-session')(session);
 const cloudinary = require('cloudinary').v2;
 
-// const User = require('./models/user');
+const User = require('./models/user');
 
 
 const store = new MongoDBStore({
