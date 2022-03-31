@@ -43,6 +43,7 @@ router.post ('/', upload.single('img'), async (req, res)=>{
         notes: restaurantData.notes,
         priceLevel: restaurantData.priceLevel,
         visited: restaurantData.visited
+        // user: req.session.userId
         
     })
     console.log(newRestaurant)
