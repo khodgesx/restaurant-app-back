@@ -8,7 +8,7 @@ const restaurantSchema = new Schema({
     img: { type: String, default:'https://i.imgur.com/IsRaUa5.png'},
     faveDish: String,
     notes: String,
-    priceLevel: String,
+    priceLevel: { type: String, enum: ['$', '$$', '$$$'], default:'$$'},
     user: { type: Schema.Types.ObjectId, ref: 'User' }
 }, { timestamps: true })
 

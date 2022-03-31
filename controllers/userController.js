@@ -64,11 +64,11 @@ router.post('/login', async (req, res) => {
             // There is a user with this username!
             // Compare the password from the form with the database password
             if (bcrypt.compareSync(req.body.password, possibleUser.password)) {
-                console.log('hello')
-                // It's a match! Successful login!
-                req.session.isLoggedIn = true;
-                req.session.userId = possibleUser._id;
-                console.log(req.session.userId)
+                // console.log('hello')
+                // // It's a match! Successful login!
+                // req.session.isLoggedIn = true;
+                // req.session.userId = possibleUser._id;
+                // console.log(req.session.userId)
                 console.log(possibleUser._id)
                 // return
                 res.send({

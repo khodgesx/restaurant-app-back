@@ -7,8 +7,10 @@ const cloudinary = require('cloudinary')
 const upload = multer({dest:'./uploads/'})
 
 //index
-router.get('/', async (req, res)=>{
-    const restaurants = await Restaurant.find()
+//get eateries by user ID
+router.get('/:id', async (req, res)=>{
+    const userId = await User.findById(req.params.id)
+    const restaurants = await Restaurant.find({user:userId})
       //instead of rendering or redirecting
      //we send a json object to the front end
      //we send the data, here it is all restaurants from our database using Restaurant.find() 
@@ -28,11 +30,10 @@ router.get('/', async (req, res)=>{
 
 
 //create route with photo upload
-router.post ('/', upload.single('img'), async (req, res)=>{
+router.post ('/:id', upload.single('img'), async (req, res)=>{
     try{
     //send back new restaurant from form info submitted on front end
     //once we update here in our database, we send to FE to update it in state as well
-   
     const restaurantData = req.body 
     // console.log(restaurantData)
     
@@ -44,19 +45,18 @@ router.post ('/', upload.single('img'), async (req, res)=>{
         notes: restaurantData.notes,
         priceLevel: restaurantData.priceLevel,
         visited: restaurantData.visited,
-        user: req.session.userId
+        user: req.params.id
         
     })
     console.log(newRestaurant)
-    // console.log(req.session.userId)
-    console.log(req.session.user._id)
-    // console.log(req.user)
+    
 
         res.send({
             success:true,
             data: newRestaurant
         })
     }catch(err){
+        console.log(err)
         res.send({
             success:false,
             data:err.message
@@ -87,7 +87,7 @@ router.get('/:id', async (req, res)=>{
 router.put('/:id', async (req, res)=>{
     const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {new:true})
     console.log(req.body)
-    console.log(req.params.id)
+   
     try{
         res.send({
             success:true,
