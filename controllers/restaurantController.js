@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express()
 const Restaurant = require('../models/restaurant')
+const User = require('../models/user')
 const multer = require('multer')
 const cloudinary = require('cloudinary')
 const upload = multer({dest:'./uploads/'})
@@ -33,7 +34,7 @@ router.post ('/', upload.single('img'), async (req, res)=>{
     //once we update here in our database, we send to FE to update it in state as well
    
     const restaurantData = req.body 
-    console.log(restaurantData)
+    // console.log(restaurantData)
     
     const newRestaurant = await Restaurant.create({
         name: restaurantData.name,
@@ -42,11 +43,15 @@ router.post ('/', upload.single('img'), async (req, res)=>{
         faveDish: restaurantData.faveDish,
         notes: restaurantData.notes,
         priceLevel: restaurantData.priceLevel,
-        visited: restaurantData.visited
-        // user: req.session.userId
+        visited: restaurantData.visited,
+        user: req.session.userId
         
     })
     console.log(newRestaurant)
+    // console.log(req.session.userId)
+    console.log(req.session.user._id)
+    // console.log(req.user)
+
         res.send({
             success:true,
             data: newRestaurant

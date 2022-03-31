@@ -9,7 +9,7 @@ const restaurantSchema = new Schema({
     faveDish: String,
     notes: String,
     priceLevel: String,
-    // user: { type: Schema.Types.ObjectId, ref: 'User' }
+    user: { type: Schema.Types.ObjectId, ref: 'User' }
 }, { timestamps: true })
 
 const Recipe = mongoose.model('Restaurant', restaurantSchema);
