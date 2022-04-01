@@ -23,10 +23,7 @@ The restaurants are then sorted into two lists - visited or not.
 
 ### API
 - Cloudinary for uploading photos
-- Yelp for Restaurant Search (TBD)
 
-## Approach:
-Currently working with one model - restaurants - but I hope to add a second model - users - so users can login and use this app for themselves. I'd also like to add a third model - take out menus. 
 
 ## MVP:
 - A working full-stack application using the MERN stack
@@ -37,10 +34,15 @@ Currently working with one model - restaurants - but I hope to add a second mode
 - Two git repositories - one for backend and one for frontend 
 
 ## Stretch Goals:
-- Have Users who can log in - working on it
+- User login/logout feature - saves their lists 
 - Pull from a 3rd party API - Cloudinary
 - Use a CSS framework like Bootstrap - using Bootstrap for my modals
 
-## Additional Notes:
-I plan to get the user functionality set up and hope to implement a 3rd party API call to Yelp to make adding restaurants easier.
+## Future Goals:
+- react router 
+- add another model - takeout menus
+- clean up design
+- Yelp for Restaurant Search 
+
+
 
