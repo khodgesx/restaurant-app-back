@@ -15,7 +15,7 @@ The restaurants are then sorted into two lists - visited or not.
 ### Deployed [Yummy Decisions](https://restaurant-app-front.herokuapp.com/)
 
 ## User Flow:
-![alt text](url "restaurant user flow")
+![alt text](https://i.imgur.com/8FVFL8K.jpg "Yummy Decisions user flow")
 
 ## Tech Stack: MERN
 ### Back-End: MongoDB, Express.js, Node.js
@@ -39,6 +39,7 @@ The restaurants are then sorted into two lists - visited or not.
 - Use a CSS framework like Bootstrap - using Bootstrap for my modals
 
 ## Future Goals:
+- complete edit user functionality
 - react router 
 - add another model - takeout menus
 - clean up design

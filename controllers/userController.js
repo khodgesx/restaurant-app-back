@@ -61,16 +61,10 @@ router.post('/login', async (req, res) => {
         const possibleUser = await User.findOne({ username: req.body.username })
         console.log(possibleUser)
         if (possibleUser) {
-            // There is a user with this username!
+            // There is a user with this username
             // Compare the password from the form with the database password
             if (bcrypt.compareSync(req.body.password, possibleUser.password)) {
-                // console.log('hello')
-                // // It's a match! Successful login!
-                // req.session.isLoggedIn = true;
-                // req.session.userId = possibleUser._id;
-                // console.log(req.session.userId)
-                console.log(possibleUser._id)
-                // return
+                // console.log(possibleUser._id)
                 res.send({
                     success:true,
                     data: possibleUser
@@ -108,6 +102,27 @@ router.get('/:id', async (req, res)=>{
 router.put('/:id', async (req, res)=>{
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {new:true})
     try{
+        res.send({
+            success:true,
+            data: user
+        })
+
+    }catch(err){
+        res.send({
+            success:false, 
+            data:err.message
+        })
+    }
+})
+
+//update photo 
+router.put('/update-photo/:id', upload.single('img'), async (req, res)=>{
+    try{
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, {new:true})
+        console.log(req.body)
+        console.log(req.params.id)
+        console.log(req.body.img)
+
         res.send({
             success:true,
             data: user
