@@ -5,7 +5,6 @@ const userSchema = new Schema({
     displayName: { type: String, required: true },
     username: { type: String, unique: true, required: true, minlength: 2 },
     password: { type: String, required: true },
-    // restaurantList: { type: Number, default: 0 },
     img: { type: String, defulat:'https://i.imgur.com/Ccw5H8d.png' }
 }, { timestamps: true })
 

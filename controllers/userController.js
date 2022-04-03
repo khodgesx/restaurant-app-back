@@ -9,15 +9,11 @@ const upload = multer({dest:'./uploads/'})
 //index
 router.get('/', async (req, res)=>{
     const users = await User.find()
-      //instead of rendering or redirecting
-     //we send a json object to the front end
-     //we send the data, here it is all users from our database using User.find() 
     try{
         res.send({
             success:true,
             data: users
         })
-        //here if there is an error we don't send bad data, we send the error and let front end know it wasn't successful
     }catch(err){
         res.send({
             success:false, 
@@ -29,8 +25,6 @@ router.get('/', async (req, res)=>{
 //create user route with photo upload
 router.post ('/', upload.single('img'), async (req, res)=>{
     try{
-    //send back new restaurant from form info submitted on front end
-    //once we update here in our database, we send to FE to update it in state as well
    
     const userData = req.body 
     console.log(userData)
@@ -57,14 +51,10 @@ router.post ('/', upload.single('img'), async (req, res)=>{
 
 router.post('/login', async (req, res) => {
     try {
-        // Grab the user from the database with the username from the form
         const possibleUser = await User.findOne({ username: req.body.username })
         console.log(possibleUser)
         if (possibleUser) {
-            // There is a user with this username
-            // Compare the password from the form with the database password
             if (bcrypt.compareSync(req.body.password, possibleUser.password)) {
-                // console.log(possibleUser._id)
                 res.send({
                     success:true,
                     data: possibleUser
@@ -142,7 +132,6 @@ router.delete('/:id', async (req, res)=>{
     if(!user){
         throw new Error('No user by that id')
     }
-    //because success is that we deleted the user and the data is actually deleted so data sent is null
     try{
         res.send({
             success:true,
