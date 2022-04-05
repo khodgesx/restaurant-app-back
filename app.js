@@ -31,7 +31,7 @@ const isLoggedIn = require('./middleware/isLoggedIn')
 app.use(morgan('short'))
 // app.use(cors())
 app.use(cors({
-    origin:"https://yummy-decisions.herokuapp.com/",
+    origin:"https://yummy-decisions.herokuapp.com",
     credentials: true
 }))
 app.use(express.urlencoded({extended:true}));
