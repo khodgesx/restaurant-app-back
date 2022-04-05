@@ -47,7 +47,7 @@ app.use(cors())
 // }
 // app.use(cors(corsOptions))
 
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET,
