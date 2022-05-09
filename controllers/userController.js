@@ -27,7 +27,7 @@ router.post ('/', upload.single('img'), async (req, res)=>{
     try{
    
     const userData = req.body 
-    console.log(userData)
+    // console.log(userData)
     
     const newUser = await User.create({
         displayName: userData.displayName,
@@ -52,7 +52,7 @@ router.post ('/', upload.single('img'), async (req, res)=>{
 router.post('/login', async (req, res) => {
     try {
         const possibleUser = await User.findOne({ username: req.body.username })
-        console.log(possibleUser)
+        // console.log(possibleUser)
         if (possibleUser) {
             if (bcrypt.compareSync(req.body.password, possibleUser.password)) {
                 res.send({

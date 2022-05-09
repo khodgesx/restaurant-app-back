@@ -75,7 +75,7 @@ router.get('/:id', async (req, res)=>{
 //update
 router.put('/:id', async (req, res)=>{
     const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {new:true})
-    console.log(req.body)
+    // console.log(req.body)
    
     try{
         res.send({
@@ -94,9 +94,9 @@ router.put('/:id', async (req, res)=>{
 router.put('/update-photo/:id', upload.single('img'), async (req, res)=>{
     try{
         const restaurant = await Restaurant.findByIdAndUpdate(req.params.id, req.body, {new:true})
-        console.log(req.body)
-        console.log(req.params.id)
-        console.log(req.body.img)
+        // console.log(req.body)
+        // console.log(req.params.id)
+        // console.log(req.body.img)
 
         res.send({
             success:true,
